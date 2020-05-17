@@ -4,13 +4,19 @@ import normalizeEmail from 'validator/lib/normalizeEmail';
 import bcrypt from 'bcryptjs';
 import middleware from '../../middlewares/middleware';
 import { extractUser } from '../../lib/api-helpers';
+import { hskWords } from '../../lib/hsk-levels';
 
 const handler = nextConnect();
+
+const hskFilter = (hsklevel) => {
+  const filterArr = [].concat(...hskWords.slice(0, Number(hsklevel)+1).map(i => i.words));
+  return filterArr
+}
 
 handler.use(middleware);
 
 handler.post(async (req, res) => {
-  const { name, password } = req.body;
+  const { name, password, hsklevel } = req.body;
   const email = normalizeEmail(req.body.email);
   if (!isEmail(email)) {
     res.status(400).send('The email you entered is invalid.');
@@ -25,10 +31,11 @@ handler.post(async (req, res) => {
     return;
   }
   const hashedPassword = await bcrypt.hash(password, 10);
+  const hsk = hskFilter(hsklevel)
   const user = await req.db
     .collection('users')
     .insertOne({
-      email, password: hashedPassword, name, emailVerified: false, bio: '', profilePicture: null,
+      email, password: hashedPassword, name, emailVerified: false, bio: '', profilePicture: null, words: hsk
     })
     .then(({ ops }) => ops[0]);
   req.logIn(user, (err) => {

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Row, Col, Jumbotron, Container, Card, Button, CardHeader, CardFooter, CardBody,
+  CardTitle, CardText } from 'reactstrap';
+
 import Head from 'next/head';
 import Link from 'next/link';
 import Error from 'next/error';
 import middleware from '../../../middlewares/middleware';
 import { useCurrentUser } from '../../../lib/hooks';
 import { getUser } from '../../../lib/db';
+import Loading from '../../../components/Loading'
 
 export default function UserPage({ user }) {
   if (!user) return <Error statusCode={404} />;
@@ -13,61 +17,42 @@ export default function UserPage({ user }) {
   } = user || {};
   const [currentUser] = useCurrentUser();
   const isCurrentUser = currentUser?._id === user._id;
+
+
   return (
     <>
-      <style jsx>
-        {`
-          h2 {
-            text-align: left;
-            margin-right: 0.5rem;
-          }
-          button {
-            margin: 0 0.25rem;
-          }
-          img {
-            width: 10rem;
-            height: auto;
-            border-radius: 50%;
-            box-shadow: rgba(0, 0, 0, 0.05) 0 10px 20px 1px;
-            margin-right: 1.5rem;
-          }
-          div {
-            color: #777;
-            display: flex;
-            align-items: center;
-          }
-          p {
-            font-family: monospace;
-            color: #444;
-            margin: 0.25rem 0 0.75rem;
-          }
-          a {
-            margin-left: 0.25rem;
-          }
-        `}
-      </style>
       <Head>
         <title>{name}</title>
       </Head>
-      <div>
-        <img src={profilePicture} width="256" height="256" alt={name} />
-        <section>
-          <div>
-            <h2>{name}</h2>
-            {isCurrentUser && (
-            <Link href="/settings">
+      <Row>
+
+      <Card className="profile-card">
+        <CardHeader>Profile</CardHeader>
+        <CardBody>
+          <Row xs="4">
+          <Col>
+             <img className="profile-image" src={profilePicture} width="256" height="256" alt={name} />
+          </Col>
+          <Col xs="6">
+            <CardTitle><h4>{name}</h4></CardTitle>
+            <CardText>name: {name} <br/> email: {email} <br/>about: {bio}</CardText>
+          </Col>
+          </Row>
+        </CardBody>
+        {isCurrentUser && (
+             <CardFooter className="text-muted"><Link href="/settings">
               <button type="button">Edit</button>
-            </Link>
+            </Link></CardFooter>
             )}
-          </div>
-          Bio
-          <p>{bio}</p>
-          Email
-          <p>
-            {email}
-          </p>
-        </section>
-      </div>
+      </Card>
+
+
+
+    
+      </Row>
+      <Row>
+
+      </Row>
     </>
   );
 }

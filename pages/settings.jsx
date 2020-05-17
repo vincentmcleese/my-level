@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import { useCurrentUser } from '../lib/hooks';
+import { Row, Col, Button, Form, FormGroup, Label, Input, FormText, Alert} from 'reactstrap';
 
 const ProfileSection = () => {
   const [user, { mutate }] = useCurrentUser();
@@ -25,7 +26,7 @@ const ProfileSection = () => {
     formData.append('bio', bioRef.current.value);
     const res = await fetch('/api/user', {
       method: 'PATCH',
-      body: formData,
+      body: formData, 
     });
     if (res.status === 200) {
       const userData = await res.json();
@@ -74,10 +75,12 @@ const ProfileSection = () => {
       <Head>
         <title>Settings</title>
       </Head>
-      <section>
-        <h2>Edit Profile</h2>
+      <Row>
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
+          <Row><h2>Edit Profile</h2></Row>
+    
         {msg.message ? <p style={{ color: msg.isError ? 'red' : '#0070f3', textAlign: 'center' }}>{msg.message}</p> : null}
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           {!user.emailVerified ? (
             <p>
               Your email has not been verify.
@@ -88,9 +91,10 @@ const ProfileSection = () => {
                 </a>
             </p>
           ) : null}
-          <label htmlFor="name">
-            Name
-            <input
+
+          <FormGroup>
+          <Label htmlFor="name"> Name </Label>
+            <Input
               required
               id="name"
               name="name"
@@ -98,51 +102,61 @@ const ProfileSection = () => {
               placeholder="Your name"
               ref={nameRef}
             />
-          </label>
-          <label htmlFor="bio">
-            Bio
-            <textarea
+          </FormGroup>
+
+          <FormGroup>
+          <Label htmlFor="bio"> Bio </Label>
+            <Input
               id="bio"
               name="bio"
-              type="text"
+              type="textarea"
               placeholder="Bio"
               ref={bioRef}
             />
-          </label>
-          <label htmlFor="avatar">
-            Profile picture
-            <input
+          </FormGroup>
+            
+            
+          <FormGroup>
+          <Label htmlFor="avatar"> Profile Picture </Label>
+            <Input
               type="file"
               id="avatar"
               name="avatar"
               accept="image/png, image/jpeg"
               ref={profilePictureRef}
             />
-          </label>
-          <button disabled={isUpdating} type="submit">Save</button>
-        </form>
-        <form onSubmit={handleSubmitPasswordChange}>
-          <label htmlFor="oldpassword">
-            Old Password
-            <input
+          </FormGroup>
+
+          <Button disabled={isUpdating} type="submit">Save</Button>
+        </Form>
+
+        <Form onSubmit={handleSubmitPasswordChange}>
+
+        <FormGroup>
+          <Label htmlFor="oldpassword"> Old password </Label>
+            <Input
               type="password"
               name="oldPassword"
               id="oldpassword"
               required
             />
-          </label>
-          <label htmlFor="newpassword">
-            New Password
-            <input
+          </FormGroup>
+
+          <FormGroup>
+          <Label htmlFor="newpassword">New password </Label>
+            <Input
               type="password"
               name="newPassword"
               id="newpassword"
               required
             />
-          </label>
-          <button type="submit">Change Password</button>
-        </form>
-      </section>
+           </FormGroup>
+
+          <Button type="submit">Change Password</Button>
+        </Form>
+        </Col>
+        </Row>
+
     </>
   );
 };

@@ -7,3 +7,4 @@ export function useCurrentUser() {
   const user = data && data.user;
   return [user, { mutate }];
 }
+

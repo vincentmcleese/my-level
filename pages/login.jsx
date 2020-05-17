@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import {
+  Row, Col, Button, Form, FormGroup, Label, Input, FormText, Alert,
+} from 'reactstrap';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -37,30 +40,42 @@ const LoginPage = () => {
       <Head>
         <title>Sign in</title>
       </Head>
-      <h2>Sign in</h2>
-      <form onSubmit={onSubmit}>
-        {errorMsg ? <p style={{ color: 'red' }}>{errorMsg}</p> : null}
-        <label htmlFor="email">
-          <input
-            id="email"
-            type="email"
-            name="email"
-            placeholder="Email address"
-          />
-        </label>
-        <label htmlFor="password">
-          <input
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Password"
-          />
-        </label>
-        <button type="submit">Sign in</button>
-        <Link href="/forget-password">
-          <a>Forget password</a>
-        </Link>
-      </form>
+     
+      <Row>
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
+          <Row>
+            <h2>Sign in</h2>
+          </Row>
+          <Form onSubmit={onSubmit}>
+            {errorMsg ? <p style={{ color: 'red' }}>{errorMsg}</p> : null}
+
+            <FormGroup>
+              <Label htmlFor="email">e-mail</Label>
+              <Input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Email address"
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label htmlFor="password">password</Label>
+              <Input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
+            </FormGroup>
+
+            <Button type="submit">Sign in</Button>
+            <Link href="/forget-password">
+              <a>Forget password</a>
+            </Link>
+          </Form>
+        </Col>
+      </Row>
     </>
   );
 };

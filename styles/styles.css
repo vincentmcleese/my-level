@@ -1,0 +1,133 @@
+
+/* GLOBAL */
+html,
+body {
+  height: 100%
+}
+
+.container {
+  height: 100%;
+}
+
+.clickable:hover {
+  cursor: pointer;
+}
+
+
+.row{
+    padding: 20px 0px
+}
+
+.clean-link{
+  text-decoration: none;
+  color: black;
+}
+
+
+/* PROFILE PAGE */
+.profile-card {
+    width: 100%;
+  }
+
+  .profile-image {
+    border-radius: 50%;
+    max-height: 100px;
+
+  }
+
+/* CONTENT PAGE */
+  .content-card {
+    margin: 10px 0px;
+    height: 300px
+  }
+
+  .content-card:hover {
+    border-color: black;
+    cursor: pointer;
+  }
+
+  .content-title {
+    height: 75px;
+    overflow-y: hidden;
+  }
+
+/* READ PAGE */
+.content-div {
+  padding: 5px 0px;
+}
+
+.alert{
+  margin-bottom: 0px;
+}
+
+.word {
+  margin: 4px 0px;
+}
+
+.word:hover {
+  cursor: pointer;
+  font-weight: bold;
+
+}
+
+.k {
+  color: green;
+}
+.u {
+  color: red;
+}
+
+
+/* CIRCULAR PROGRESS BAR */
+
+.CircularProgressbar {
+  /*
+   * This fixes an issue where the CircularProgressbar svg has
+   * 0 width inside a "display: flex" container, and thus not visible.
+   */
+  width: 100%;
+  /*
+   * This fixes a centering issue with CircularProgressbarWithChildren:
+   * https://github.com/kevinsqi/react-circular-progressbar/issues/94
+   */
+  vertical-align: middle;
+}
+
+.CircularProgressbar .CircularProgressbar-path {
+  stroke: #3e98c7;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+.CircularProgressbar .CircularProgressbar-trail {
+  stroke: #d6d6d6;
+  /* Used when trail is not full diameter, i.e. when props.circleRatio is set */
+  stroke-linecap: round;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+  fill: #3e98c7;
+  font-size: 20px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.CircularProgressbar .CircularProgressbar-background {
+  fill: #d6d6d6;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-background {
+  fill: #3e98c7;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-text {
+  fill: #fff;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-path {
+  stroke: #fff;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-trail {
+  stroke: transparent;
+}
